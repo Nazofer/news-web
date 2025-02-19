@@ -1,6 +1,5 @@
-export const defaultParams = Object.freeze({
-  pageSize: 20,
-  page: 1,
-  language: 'en',
-  sortBy: 'popularity',
-});
+export const DEFAULT_LANGUAGE = 'en';
+export const DEFAULT_COUNTRY = 'us';
+export const DEFAULT_CATEGORY = 'general';
+export const DEFAULT_PAGE_SIZE = 20;
+export const DEFAULT_PAGE = 1;

@@ -1,11 +1,11 @@
-import { getEverything } from '@api/news';
+import { getTopHeadlines } from '@api/news';
 
-const NewsPage = async () => {
-  const data = await getEverything({ q: 'all' });
+const TopHeadlinesPage = async () => {
+  const data = await getTopHeadlines({ q: '' });
 
   return (
     <div className='container mx-auto p-6'>
-      <h1 className='text-4xl font-bold mb-4'>Popular news</h1>
+      <h1 className='text-4xl font-bold mb-4'>Top Headlines</h1>
       <ul>
         {data.articles.map((article) => (
           <li key={article.url} className='border-b py-4'>
@@ -25,4 +25,4 @@ const NewsPage = async () => {
   );
 };
 
-export default NewsPage;
+export default TopHeadlinesPage;
