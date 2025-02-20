@@ -1,4 +1,4 @@
-import environment from '@constants/environment';
+import environment from '@/core/constants/environment';
 
 const apiRoutes = Object.freeze({
   news: {

@@ -1,4 +1,4 @@
-import { getSources } from '@api/news';
+import { getSources } from '@/core/api/news';
 import React from 'react';
 
 const SourcesPage = async () => {

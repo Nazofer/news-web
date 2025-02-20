@@ -1,4 +1,4 @@
-import environment from '@constants/environment';
+import environment from '@/core/constants/environment';
 import { NextResponse } from 'next/server';
 
 export async function GET(request: Request) {

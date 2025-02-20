@@ -1,4 +1,4 @@
-import { stringifyObjectValues } from '@utils/stringify-object-values';
+import { stringifyObjectValues } from '@/core/utils/stringify-object-values';
 import type {
   EverythingParams,
   TopHeadlinesParams,
@@ -6,7 +6,7 @@ import type {
   NewsAPIResponseWithArticles,
   NewsAPIResponseWithSources,
 } from './types';
-import apiRoutes from '@constants/routes/api';
+import apiRoutes from '@/core/constants/routes/api';
 import { DEFAULT_LANGUAGE, DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from './constants';
 
 const getTopHeadlines = async (

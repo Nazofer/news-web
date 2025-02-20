@@ -1,7 +1,7 @@
-import { getEverything } from '@api/news';
+import { getEverything } from '@/core/api/news';
 
 const NewsPage = async () => {
-  const data = await getEverything({ q: 'all' });
+  const data = await getEverything({ q: 'bitcoin' });
 
   return (
     <div className='container mx-auto p-6'>

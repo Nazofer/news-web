@@ -1,4 +1,7 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
+import FONT_SIZES from './src/ui/styles/font-sizes';
+import BREAK_POINTS from './src/ui/styles/breakpoints';
+import SIZES from './src/ui/styles/sizes';
 import type { Config } from 'tailwindcss';
 
 export default {
@@ -11,6 +14,8 @@ export default {
     './src/ui/boot/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    screens: BREAK_POINTS,
+    fontSize: FONT_SIZES,
     extend: {
       colors: {
         background: 'hsl(var(--background))',
@@ -53,13 +58,100 @@ export default {
           '4': 'hsl(var(--chart-4))',
           '5': 'hsl(var(--chart-5))',
         },
+        sidebar: {
+          DEFAULT: 'hsl(var(--sidebar-background))',
+          foreground: 'hsl(var(--sidebar-foreground))',
+          primary: 'hsl(var(--sidebar-primary))',
+          'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
+          accent: 'hsl(var(--sidebar-accent))',
+          'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
+          border: 'hsl(var(--sidebar-border))',
+          ring: 'hsl(var(--sidebar-ring))',
+        },
       },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
+      fontFamily: {
+        led: ['Led', 'sans-serif'],
+        poppins: ['Poppins', 'sans-serif'],
+      },
+      minWidth: {
+        ...BREAK_POINTS,
+        ...SIZES,
+      },
+      maxWidth: {
+        ...BREAK_POINTS,
+        ...SIZES,
+      },
+      minHeight: {
+        ...BREAK_POINTS,
+        ...SIZES,
+      },
+      maxHeight: {
+        sidebar: 'calc(100vh - 5rem)',
+      },
+      boxShadow: {
+        'bottom-bar':
+          '0px 0px 5px rgba(0,0,0,0.02), 0px 0px 5px 5px rgba(0,0,0,0.05)',
+        mobile:
+          '0px 0px 5px rgba(0, 0, 0, 0.05), 0px 25px 35px rgba(0, 0, 0, 0.03)',
+        desktop:
+          '0px 0px 5px 0px rgba(0, 0, 0, 0.05), 0px 0px 35px 5px rgba(0, 0, 0, 0.08)',
+        'view-meals':
+          '0px 0px 5px rgba(0, 0, 0, 0.05), 0px 0px 35px 5px rgba(0, 0, 0, 0.08)',
+      },
+      dropShadow: {
+        mobile: [
+          '0px 0px 5px rgba(0, 0, 0, 0.05)',
+          '0px 25px 35px rgba(0, 0, 0, 0.03)',
+        ],
+        desktop: [
+          '0px 0px 5px 0px rgba(0, 0, 0, 0.05)',
+          '0px 0px 35px 5px rgba(0, 0, 0, 0.08)',
+        ],
+        soft: [
+          '0px 21.465px 30.051px rgba(0, 0, 0, 0.03)',
+          '0px 0px 4.293px rgba(0, 0, 0, 0.05)',
+        ],
+      },
+      padding: {
+        ...SIZES,
+      },
+      margin: {
+        ...SIZES,
+      },
+      flex: {
+        '2': '2 1 0%',
+      },
+      keyframes: {
+        'accordion-down': {
+          from: {
+            height: '0',
+          },
+          to: {
+            height: 'var(--radix-accordion-content-height)',
+          },
+        },
+        'accordion-up': {
+          from: {
+            height: 'var(--radix-accordion-content-height)',
+          },
+          to: {
+            height: '0',
+          },
+        },
+      },
+      animation: {
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
+      },
     },
+  },
+  corePlugins: {
+    preflight: true,
   },
   plugins: [require('tailwindcss-animate')],
 } satisfies Config;
