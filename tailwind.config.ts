@@ -1,8 +1,10 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
+import FONT_SIZES from './src/ui/styles/font-sizes';
+import BREAK_POINTS from './src/ui/styles/breakpoints';
+import COLORS from './src/ui/styles/colors';
+import SIZES from './src/ui/styles/sizes';
 import type { Config } from 'tailwindcss';
 
 export default {
-  darkMode: ['class'],
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
@@ -11,55 +13,72 @@ export default {
     './src/ui/boot/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    screens: BREAK_POINTS,
+    colors: COLORS,
+    fontSize: FONT_SIZES,
+
+    fontWeight: {
+      regular: '450',
+      // ...defaultTheme.fontWeight,
+    },
     extend: {
-      colors: {
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
-        card: {
-          DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))',
-        },
-        popover: {
-          DEFAULT: 'hsl(var(--popover))',
-          foreground: 'hsl(var(--popover-foreground))',
-        },
-        primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))',
-        },
-        secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
-          foreground: 'hsl(var(--secondary-foreground))',
-        },
-        muted: {
-          DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))',
-        },
-        accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))',
-        },
-        destructive: {
-          DEFAULT: 'hsl(var(--destructive))',
-          foreground: 'hsl(var(--destructive-foreground))',
-        },
-        border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
-        chart: {
-          '1': 'hsl(var(--chart-1))',
-          '2': 'hsl(var(--chart-2))',
-          '3': 'hsl(var(--chart-3))',
-          '4': 'hsl(var(--chart-4))',
-          '5': 'hsl(var(--chart-5))',
-        },
+      // lineHeight: FONT_SIZES,
+      // fontFamily: {
+      // circular: ['"Circular Std"', ...defaultTheme.fontFamily.sans],
+      //   'ibm-plex': [
+      //     '"IBM Plex Serif"',
+      //     '"Circular Std"',
+      //     ...defaultTheme.fontFamily.sans,
+      //   ],
+      // },
+      minWidth: { ...BREAK_POINTS, ...SIZES },
+      maxWidth: { ...BREAK_POINTS, ...SIZES },
+      minHeight: { ...BREAK_POINTS, ...SIZES },
+      maxHeight: { sidebar: 'calc(100vh - 5rem)' },
+      boxShadow: {
+        'bottom-bar':
+          '0px 0px 5px rgba(0,0,0,0.02), 0px 0px 5px 5px rgba(0,0,0,0.05)',
+        mobile:
+          '0px 0px 5px rgba(0, 0, 0, 0.05), 0px 25px 35px rgba(0, 0, 0, 0.03)',
+        desktop:
+          '0px 0px 5px 0px rgba(0, 0, 0, 0.05), 0px 0px 35px 5px rgba(0, 0, 0, 0.08)',
+        'view-meals':
+          '0px 0px 5px rgba(0, 0, 0, 0.05), 0px 0px 35px 5px rgba(0, 0, 0, 0.08)',
+      },
+      dropShadow: {
+        mobile: [
+          '0px 0px 5px rgba(0, 0, 0, 0.05)',
+          '0px 25px 35px rgba(0, 0, 0, 0.03)',
+        ],
+        desktop: [
+          '0px 0px 5px 0px rgba(0, 0, 0, 0.05)',
+          '0px 0px 35px 5px rgba(0, 0, 0, 0.08)',
+        ],
+        soft: [
+          '0px 21.465px 30.051px rgba(0, 0, 0, 0.03)',
+          '0px 0px 4.293px rgba(0, 0, 0, 0.05)',
+        ],
       },
       borderRadius: {
-        lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)',
+        s: '16px',
+        xs: '24px',
+        l: '45px',
+        '4xl': '100px',
+      },
+      padding: {
+        ...SIZES,
+      },
+      margin: {
+        ...SIZES,
+      },
+      flex: {
+        2: '2 1 0%',
       },
     },
   },
+  corePlugins: {
+    preflight: true,
+  },
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   plugins: [require('tailwindcss-animate')],
 } satisfies Config;
