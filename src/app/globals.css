@@ -89,3 +89,19 @@
   }
 }
 
+.grid-container--fill {
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+}
+
+.grid-container--fit {
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+@media (max-width: 400px) {
+  .grid-container--fit,
+  .grid-container--fill {
+    grid-template-columns: 1fr;
+  }
+}
+
+

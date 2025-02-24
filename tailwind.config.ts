@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
-import FONT_SIZES from './src/ui/styles/font-sizes';
+// import FONT_SIZES from './src/ui/styles/font-sizes';
 import BREAK_POINTS from './src/ui/styles/breakpoints';
 import SIZES from './src/ui/styles/sizes';
 import type { Config } from 'tailwindcss';
@@ -15,7 +15,7 @@ export default {
   ],
   theme: {
     screens: BREAK_POINTS,
-    fontSize: FONT_SIZES,
+    // fontSize: FONT_SIZES,
     extend: {
       colors: {
         background: 'hsl(var(--background))',
@@ -93,30 +93,6 @@ export default {
       maxHeight: {
         sidebar: 'calc(100vh - 5rem)',
       },
-      boxShadow: {
-        'bottom-bar':
-          '0px 0px 5px rgba(0,0,0,0.02), 0px 0px 5px 5px rgba(0,0,0,0.05)',
-        mobile:
-          '0px 0px 5px rgba(0, 0, 0, 0.05), 0px 25px 35px rgba(0, 0, 0, 0.03)',
-        desktop:
-          '0px 0px 5px 0px rgba(0, 0, 0, 0.05), 0px 0px 35px 5px rgba(0, 0, 0, 0.08)',
-        'view-meals':
-          '0px 0px 5px rgba(0, 0, 0, 0.05), 0px 0px 35px 5px rgba(0, 0, 0, 0.08)',
-      },
-      dropShadow: {
-        mobile: [
-          '0px 0px 5px rgba(0, 0, 0, 0.05)',
-          '0px 25px 35px rgba(0, 0, 0, 0.03)',
-        ],
-        desktop: [
-          '0px 0px 5px 0px rgba(0, 0, 0, 0.05)',
-          '0px 0px 35px 5px rgba(0, 0, 0, 0.08)',
-        ],
-        soft: [
-          '0px 21.465px 30.051px rgba(0, 0, 0, 0.03)',
-          '0px 0px 4.293px rgba(0, 0, 0, 0.05)',
-        ],
-      },
       padding: {
         ...SIZES,
       },
@@ -124,7 +100,7 @@ export default {
         ...SIZES,
       },
       flex: {
-        '2': '2 1 0%',
+        2: '2 1 0%',
       },
       keyframes: {
         'accordion-down': {

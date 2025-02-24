@@ -61,9 +61,9 @@ type NewsAPIResponseBase = { totalResults: number } & (
 );
 
 export type NewsAPIResponseWithArticles = NewsAPIResponseBase & {
-  articles: Article[];
+  articles?: Article[];
 };
 
 export type NewsAPIResponseWithSources = NewsAPIResponseBase & {
-  sources: Source[];
+  sources?: Source[];
 };

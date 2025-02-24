@@ -1,24 +1,18 @@
 import { getTopHeadlines } from '@/core/api/news';
+import ArticleCard from '@/ui/components/article-card';
 
 const TopHeadlinesPage = async () => {
-  const data = await getTopHeadlines({ q: '' });
+  const data = await getTopHeadlines();
+
+  if (data.status !== 'ok' || !data.articles) {
+    return <div>Failed to fetch data</div>;
+  }
 
   return (
-    <div className='container mx-auto p-6'>
-      <h1 className='text-4xl font-bold mb-4'>Top Headlines</h1>
-      <ul>
+    <div className='flex py-10 px-4'>
+      <ul className='container grid grid-container--fill gap-6 max-w-[1400px] w-full mx-auto'>
         {data.articles.map((article) => (
-          <li key={article.url} className='border-b py-4'>
-            <a
-              href={article.url}
-              target='_blank'
-              rel='noopener noreferrer'
-              className='text-blue-600 hover:underline'
-            >
-              {article.title}
-            </a>
-            <p className='text-sm text-gray-500'>{article.publishedAt}</p>
-          </li>
+          <ArticleCard article={article} key={article.url} />
         ))}
       </ul>
     </div>
