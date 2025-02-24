@@ -12,10 +12,13 @@ import {
 import Image from 'next/image';
 import dayjs from 'dayjs';
 import { cn } from '@/core/lib/utils';
-import { motion } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import useBoolean from '@/ui/hooks/use-boolean';
-import { useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { Button } from '../ui/button';
+import { LuX as CloseIcon } from 'react-icons/lu';
+import Link from 'next/link';
+import { ScrollContext } from '@/ui/boot/provider';
 
 interface Props {
   article: Article;
@@ -26,19 +29,17 @@ const ArticleCard: React.FC<Props> = ({ article, className }) => {
   const isOpenState = useBoolean();
   const cardRef = useRef<HTMLDivElement | null>(null);
 
-  console.log('article', article);
+  const scrollContext = useContext(ScrollContext);
 
   useEffect(() => {
     if (isOpenState.value) {
-      document.body.style.overflow = 'hidden';
+      scrollContext.handleScrollOff();
     } else {
-      document.body.style.overflow = 'auto';
+      scrollContext.handleScrollOn();
     }
 
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, [isOpenState.value]);
+    return scrollContext.handleScrollOn;
+  }, [isOpenState.value, scrollContext]);
 
   const handleOpenCard = () => {
     if (isOpenState.value) {
@@ -50,24 +51,42 @@ const ArticleCard: React.FC<Props> = ({ article, className }) => {
 
   return (
     <div className='h-full w-full'>
-      <div
-        className={cn(
-          'bg-background/50 backdrop-blur-sm fixed top-[62px] left-0 right-0 bottom-0 z-50',
-          !isOpenState.value && 'opacity-0 pointer-events-none'
+      <AnimatePresence>
+        {isOpenState.value && (
+          <motion.div
+            initial={{
+              opacity: 0,
+              backdropFilter: 'blur(0px)',
+            }}
+            animate={{
+              opacity: 1,
+              backdropFilter: 'blur(6px)',
+            }}
+            exit={{
+              opacity: 0,
+              backdropFilter: 'blur(0px)',
+            }}
+            className={cn('bg-background/50 fixed inset-0 z-50')}
+            onClick={isOpenState.setFalse}
+          />
         )}
-        onClick={isOpenState.setFalse}
-      ></div>
+      </AnimatePresence>
       <motion.div
         layout
         layoutId={article.url}
         className={cn(
           isOpenState.value
-            ? 'fixed top-[102px] left-[40px] right-[40px] bottom-[40px] z-50 bg-transparent'
+            ? 'fixed inset-[40px] max-md:inset-0 z-50 bg-transparent'
             : 'h-full'
         )}
       >
         <Card
-          className={cn(className, 'overflow-hidden flex flex-col h-full')}
+          className={cn(
+            className,
+            'overflow-hidden flex flex-col h-full duration-200 transition-scale cursor-pointer',
+
+            !isOpenState.value ? 'hover:scale-105' : 'max-md:rounded-none'
+          )}
           onClick={handleOpenCard}
           ref={cardRef}
         >
@@ -80,11 +99,17 @@ const ArticleCard: React.FC<Props> = ({ article, className }) => {
                 </CardDescription>
               </div>
               {isOpenState.value && (
-                <Button variant='link' size='icon'></Button>
+                <Button
+                  variant='ghost'
+                  className='size-10'
+                  onClick={isOpenState.setFalse}
+                >
+                  <CloseIcon className='text-primary !size-6' />
+                </Button>
               )}
             </div>
           </CardHeader>
-          <CardContent>
+          <CardContent className='flex-1 flex flex-col'>
             <div
               className={cn(
                 'relative h-[200px]',
@@ -101,7 +126,17 @@ const ArticleCard: React.FC<Props> = ({ article, className }) => {
               )}
             </div>
             {isOpenState.value && (
-              <div className='h-full flex-1'>{article.content}</div>
+              <div className='mt-4'>
+                {article.content}{' '}
+                <Link
+                  href={article.url}
+                  className='text-muted-foreground underline hover:text-primary transition-colors'
+                  target='_blank'
+                  rel='noopener noreferrer nofollow'
+                >
+                  Read more
+                </Link>
+              </div>
             )}
           </CardContent>
           <CardFooter className='flex justify-between font-led text-xs text-muted-foreground  bg-muted py-3 items-start mt-auto'>

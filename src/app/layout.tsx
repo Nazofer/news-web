@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import '@/core/utils/dayjs';
+import 'overlayscrollbars/overlayscrollbars.css';
 import { Poppins } from 'next/font/google';
-import Header from '@/ui/components/header';
-import Provider from '@/ui/boot/provider';
+import RootProvider from '@/ui/boot/provider';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -23,12 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en' className={poppins.className}>
-      <body className='dark'>
-        <Header />
-        <Provider>
-          <main>{children}</main>
-        </Provider>
-      </body>
+      <RootProvider>{children}</RootProvider>
     </html>
   );
 }

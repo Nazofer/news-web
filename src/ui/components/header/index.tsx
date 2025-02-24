@@ -5,10 +5,28 @@ import Container from '@/ui/components/container';
 import Divider from '@/ui/components/divider';
 import routes, { routeNames } from '@/core/constants/routes';
 import { usePathname } from 'next/navigation';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { cn } from '@/core/lib/utils';
 
 const Header: React.FC = () => {
   const pathname = usePathname();
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (typeof window !== 'undefined') {
+        const currentScrollY = window.scrollY;
+        setIsVisible(lastScrollY > currentScrollY || currentScrollY < 64);
+        setLastScrollY(currentScrollY);
+      }
+    };
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    }
+  }, [lastScrollY]);
 
   const mappedRoutes = Object.entries(routes)
     .filter(([, value]) => value !== pathname)
@@ -24,8 +42,13 @@ const Header: React.FC = () => {
     ));
 
   return (
-    <div className='bg-foreground/50 sticky top-0 z-[48]'>
-      <header className='relative bg-background/85 backdrop-blur-sm'>
+    <div
+      className={cn(
+        'fixed top-0 left-0 right-0 z-50 duration-200',
+        isVisible ? 'translate-y-0' : '-translate-y-full'
+      )}
+    >
+      <header className='relative bg-baackground/85 backdrop-blur-sm'>
         <Container className='relative flex justify-between w-full shrink-0 items-center py-4'>
           <Link href='#'>
             <h2 className='text-2xl font-bold text-foreground'>
